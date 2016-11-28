@@ -1,0 +1,99 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+html,body{
+    width:100%;
+    height:100%;
+}
+
+body{
+    background-color: #e0e5e6;
+}
+
+/*复写框架*/
+
+.grid{
+    margin: 0;
+}
+
+.row{
+    box-sizing: border-box;
+    -webkit-box-sizing:border-box;
+    margin:0;
+    height:100%;
+}
+
+
+
+/*复写框架 end*/
+
+#content{
+    box-sizing: border-box;
+    -webkit-box-sizing:border-box;
+    height:100%;
+    width:100%;
+}
+
+#header_path{
+    box-sizing: border-box;
+}
+
+#main{
+    box-sizing: border-box;
+    -webkit-box-sizing:border-box;
+    height:90%;
+}
+#path{
+    width:70%;
+    margin:0 0 30px 100px;
+    box-sizing: border-box;
+    -webkit-box-sizing:border-box;
+    font-size:20px;
+}
+
+#files_tree{
+    margin:0 0 0 50px;
+    box-sizing: border-box;
+    -webkit-box-sizing:border-box;
+    height:100%;
+    border: 4px solid gray;
+    border-radius: 10px;
+}
+#files_tree{
+    line-height:32px;
+    font-size:23px;
+}
+#files_show{
+    box-sizing: border-box;
+    -webkit-box-sizing:border-box;
+    height:100%;
+    border: 4px solid gray;
+    border-radius: 10px;
+}
+#files_analysis{
+    box-sizing: border-box;
+    -webkit-box-sizing:border-box;
+    height:100%;
+    border: 4px solid gray;
+    border-radius: 10px;
+}
+#disk_analysis{
+    box-sizing: border-box;
+    -webkit-box-sizing:border-box;
+    float:right;
+    padding:10px 0;
+    margin-bottom: 20px;
+    width:100%;
+    height:42%;
+    overflow-y:scroll;
+    border-bottom: 1px solid gray;
+}
+#files_opened{
+    padding:10px 0;
+    float:right;
+    width:100%;
+    height:42%;
+    overflow-y:scroll;
+    border-bottom: 1px solid gray;
+}

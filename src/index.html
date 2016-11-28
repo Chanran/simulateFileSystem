@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<meta charset="utf-8">
+
+<head>
+    <title>Operating System</title>
+    <link rel="stylesheet" href="../node_modules/metro-dist/css/metro.css">
+    <link rel="stylesheet" href="../node_modules/metro-dist/css/metro-colors.min.css">
+    <link rel="stylesheet" href="../node_modules/metro-dist/css/metro-icons.min.css">
+    <link rel="stylesheet" href="./css/index.css">
+</head>
+
+<body>
+    <header>
+        <ul class="m-menu bg-blue top-menu menu-left">
+            <li class="bg-blue"><a id="me" href="#">blue</a></li>
+            <li class="bg-blue">
+                <a href="#" class="dropdown-toggle">关于我</a>
+                <div class="m-menu-container" data-role="dropdown" data-no-close="true">
+                    <div class="grid no-margin">
+                        <div class="row cells5">
+                            <div class="cell padding10">
+                                <img src="./img/me.jpg">
+                            </div>
+                            <div class="cell colspan2">
+                                <h2 class="fg-white text-bold text-shadow">蓝 灿 荣</h2>
+                                <h4 class="fg-white text-bold">
+                                    班级:14软件工程1班
+                                </h4>
+                                <h4 class="fg-white text-bold">
+                                    学号:201430330113
+                                </h4>
+                            </div>
+                            <div class="cell colspan2">
+                                <ul class="unstyled-list">
+                                    <li>
+                                        <h3 class="text-shadow">友情链接</h3></li>
+                                    <li><a id="github" class="fg-white" href="#">我的github</a></li>
+                                    <li><a id="blog" class="fg-white" href="#">我的静态博客</a></li>
+                                    <li><a id="jianshu" class="fg-white" href="#">我的简书博客</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <a id="shutdown" href="#"><img src="./icon/shutdown.png" alt="关机"></a>
+        </ul>
+    </header>
+    <div id="apps-menu">
+        <ul class="t-menu">
+            <li><a href="#"><span class="icon mif-home"></span></a></li>
+            <li><a href="#" class="dropdown-txoggle"><span class="icon mif-compass"></span></a>
+                <ul class="t-menu horizontal" data-role="dropdown">
+                    <li><a href="#"><span class="icon mif-home"></span></a></li>
+                    <li><a href="#" class="dropdown-toggle"><span class="icon mif-compass"></span></a>
+                        <ul class="t-menu" data-role="dropdown">
+                            <li><a href="#"><span class="icon mif-home"></span></a></li>
+                            <li><a href="#"><span class="icon mif-compass"></span></a></li>
+                            <li><a href="#"><span class="icon mif-bubbles"></span></a></li>
+                            <li><a href="#"><span class="icon mif-file-empty"></span></a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#"><span class="icon mif-bubbles"></span></a></li>
+                </ul>
+            </li>
+            <li><a href="#"><span class="icon mif-bubbles"></span></a></li>
+            <li><a href="#"><span class="icon mif-file-empty"></span></a></li>
+        </ul>
+
+    </div>
+
+    <div>
+        <span id="terminal" class="desktop-icon">
+          <img src="./icon/terminal.png" alt="打开终端">
+          <span class="desktop-icon-title">终端</span>
+        </span>
+        <span id="file_manager" class="desktop-icon">
+          <img src="./icon/file_manager.png" alt="磁盘管理">
+          <span class="desktop-icon-title">文件管理</span>
+        </span>
+    </div>
+
+
+
+    <script src="./js/index.js" charset="utf-8"></script>
+</body>
+
+</html>

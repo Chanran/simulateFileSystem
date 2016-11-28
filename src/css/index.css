@@ -1,0 +1,102 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    background: url('../img/bg.jpg') no-repeat;
+    background-size: 100% 100%;
+}
+
+#apps-menu {
+    position: absolute;
+    left: 0;
+    top: 40%;
+}
+
+#footer {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: rgba(23, 76, 124, 0.8);
+}
+
+.win-icon {
+    cursor: pointer;
+    padding: 5px;
+    margin-right: 10px;
+    height: 60px;
+    line-height: 60px;
+}
+
+.win-icon>img {
+    width: 50px;
+    height: 50px;
+}
+
+.win-icon:hover {
+    opacity: 0.8
+}
+
+.top-menu>li>a{
+    font-size: 20px;
+    color: rgb(250, 255, 249);
+}
+
+.top-menu>li>a:hover {
+    font-weight: bold;
+    color: white;
+}
+
+.cancel-bg.horizontal, .cancel-bg {
+    background: none;
+}
+
+.desktop-icon{
+    display:inline-block;
+    margin:10px;
+    width:75px;
+    height:75px;
+}
+
+.desktop-icon>img{
+    width:75px;
+    height:75px;
+}
+.desktop-icon-title{
+    display:inline-block;
+    width:100%;
+    font-size:15px;
+    color:white;
+    font-weight: bold;
+    text-align: center;
+}
+
+#me{
+    cursor: pointer;
+}
+
+#github,#jianshu,#blog{
+    font-size:15px;
+}
+
+#shutdown{
+    float:right;
+    margin: 10px;
+}
+
+#shutdown>img{
+    width:32px;
+    height:32px;
+}
+
+.menu-right{
+    width:30%;
+    float:right;
+}

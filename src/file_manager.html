@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>文件管理</title>
+    <link rel="stylesheet" href="../node_modules/metro-dist/css/metro.css">
+    <link rel="stylesheet" href="../node_modules/metro-dist/css/metro-colors.min.css">
+    <link rel="stylesheet" href="../node_modules/metro-dist/css/metro-icons.min.css">
+    <link rel="stylesheet" href="./css/file_manager.css">
+</head>
+
+<body>
+    <div></div>
+    <div id="content">
+        <div id="header_path" class="grid">
+            <div class="row cell12">
+                <div class="cell colspan2">
+                </div>
+                <div id="path" class="cell colspan10">
+                    <span class="mif-folder fg-yellow"></span> 路径: <span class="fg-red">{{path}}</span>
+                </div>
+            </div>
+        </div>
+        <div id="main" class="grid conden">
+            <div class="row cells12">
+                <div id="files_tree" class="cell colspan3">
+                    <div class="treeview" data-role="treeview">
+                            <ul>
+                                <li class="node">
+                                    <span class="leaf"><span class="mif-tree"></span> Network</span>
+                                    <span class="node-toggle"></span>
+                                    <ul>
+                                        <li><span class="leaf"><span class="icon mif-evernote"></span> ASUS</span></li>
+                                        <li><span class="leaf"><span class="icon mif-laptop"></span> BARACUDA</span></li>
+                                        <li><span class="leaf"><span class="icon mif-printer"></span> EPSON</span></li>
+                                        <li><span class="leaf"><span class="icon mif-database"></span> VUSOLO</span></li>
+                                        <li><span class="leaf"><span class="icon mif-phone"></span> GALAXY S4</span></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                </div>
+                <div id="files_show" class="cell colspan5">
+
+                </div>
+                <div id="files_analysis" class="cell colspan3">
+                    <h2 class="align-center">磁盘分析</h2>
+                    <div id="disk_analysis" class="align-center">
+                        <table class="table striped hovered cell-hovered border bordered">
+                            <thead>
+                                <tr>
+                                    <th style="text-align:center">磁盘块</th>
+                                    <th style="text-align:center">值</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <template v-for="i in 128">
+                                    <tr>
+                                        <td>{{i}}</td>
+                                        <td>0</td>
+                                    </tr>
+                                </template>
+                            </tbody>
+                        </table>
+                    </div>
+                    <h2 class="align-center">已打开文件</h2>
+                    <div id="files_opened" class="align-center">
+                        <table class="table striped hovered cell-hovered border bordered">
+                            <thead>
+                                <tr>
+                                    <th style="text-align:center">文件名称</th>
+                                    <th style="text-align:center">文件打开方式</th>
+                                    <th style="text-align:center">文件起始盘块号</th>
+                                    <th style="text-align:center">文件路径</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <template v-for="j in 20">
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                </template>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <script src="./js/file_manager.js" charset="utf-8"></script>
+</body>
+
+</html>
