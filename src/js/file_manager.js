@@ -3,21 +3,35 @@ const electron = require('electron');  //electron
 const jQuery = require('jquery');   //引入JQuery
 const $ = jQuery;                   //定义JQuery别名
 const metroJS = require('metro-dist/js/metro.min.js');  //引入metroJS
-const Vue = require('vue/dist/vue.min');
+const Vue = require('vue/dist/vue.min'); //引入Vuejs
 const ipcRenderer = electron.ipcRenderer; //IPC进程通信
 
+/*引入类*/
+const File = require('./class/File.class.js');
+const Folder = require('./class/Folder.class.js');
+
+/*界面右键菜单*/
 const {remote} = require('electron');
 const {Menu, MenuItem} = remote;
 
 const menu = new Menu();
-menu.append(new MenuItem({label: 'MenuItem1', click() { console.log('item 1 clicked'); }}));
-menu.append(new MenuItem({type: 'separator'}));
-menu.append(new MenuItem({label: 'MenuItem2', type: 'checkbox', checked: true}));
+menu.append(new MenuItem({label: 'new file', click() {
+    dispatchEvent('newFile');
+}}));
+menu.append(new MenuItem({label: 'new folder',click(){
+    dispatchEvent('newFolder');
+}}));
 
-window.addEventListener('contextmenu', (e) => {
+window.addEventListener('newFile', (e) => {
+    let newFile = new File(Folder.currFolderPath,'新建文件');
     e.preventDefault();
     menu.popup(remote.getCurrentWindow());
 }, false);
+window.addEventListener('newFolder',(e) => {
+    let newFolder = new Folder(Folder.currFolderPath,'新建文件夹');
+    e.preventDefault();
+    menu.po;
+},false);
 
 let header_path = new Vue({
     el:'#header_path',

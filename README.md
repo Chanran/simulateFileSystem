@@ -11,6 +11,7 @@
 
 ## 使用的技术
 - 页面:html,css,javascript,metro UI
+- 交互:vuejs
 - 后台:nodejs
 - 套壳:electron
 
