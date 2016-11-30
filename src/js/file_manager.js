@@ -7,8 +7,8 @@ const Vue = require('vue/dist/vue.min'); //引入Vuejs
 const ipcRenderer = electron.ipcRenderer; //IPC进程通信
 
 /*引入类*/
-const File = require('./js/class/File');
-const Folder = require('./js/class/Folder');
+const File = require('./js/class/File.class');
+const Folder = require('./js/class/Folder.class');
 
 /*界面右键菜单*/
 const {remote} = require('electron');

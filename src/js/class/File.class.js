@@ -1,12 +1,12 @@
 /**
  * @class 文件类
- * @constructor {string,string,int,int,int}
+ * @constructor {string,string,string,string,string}
  * @param size  {3Bytes,2Bytes,1Bytes,1Bytes,1Bytes}
  * @time 2016.11.30
  * @return {class}
  */
 class File{
-    constructor(filePath,fileName,fileType='',startBlock,fileLength){
+    constructor(filePath,fileName,fileType = '00000100',startBlock = ,fileLength){
         this.folderPath = filePath;
         this.filName = fileName;
         this.fileType(fileType);
@@ -27,6 +27,9 @@ class File{
     }
     get fileType(){
         return this.fileType;
+    }
+    set fileType(value){
+        this.fileType(value);
     }
     get startBlock(){
         return this.startBlock;
