@@ -1,3 +1,4 @@
+'use strict';
 const electron = require('electron'); //electron
 const {app,Tray} = require('electron');
 const BrowserWindow = electron.BrowserWindow; //electron界面
@@ -35,10 +36,12 @@ app.on('window-all-closed', function() {
     }
 });
 
+/*关机*/
 ipcMain.on('shutdown', () => {
     app.quit();
 });
 
+/*新终端*/
 ipcMain.on('new_terminal',()=>{
     if (process.platform == 'linux'){
         child.exec('gnome-terminal');
@@ -47,6 +50,8 @@ ipcMain.on('new_terminal',()=>{
     }
 
 });
+
+/*打开文件管理页面*/
 ipcMain.on('file_manager',()=>{
     let file_manager = new BrowserWindow({
         width:1600,
@@ -54,5 +59,6 @@ ipcMain.on('file_manager',()=>{
         show:true
     });
 
+    file_manager.webContents.openDevTools();
     file_manager.loadURL(`file://${__dirname}/src/file_manager.html`);
 });

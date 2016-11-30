@@ -97,3 +97,8 @@ body{
     overflow-y:scroll;
     border-bottom: 1px solid gray;
 }
+
+.show-content{
+    margin:20px 20px;
+    height:95%;
+}
