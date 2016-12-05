@@ -1,4 +1,5 @@
 'use strict';
+
 const electron = require('electron');  //electron
 const jQuery = require('jquery');   //引入JQuery
 const $ = jQuery;                   //定义JQuery别名
@@ -7,8 +8,14 @@ const Vue = require('vue/dist/vue.min'); //引入Vuejs
 const ipcRenderer = electron.ipcRenderer; //IPC进程通信
 
 /*引入类*/
-const File = require('./js/class/File.class');
-const Folder = require('./js/class/Folder.class');
+const DiskClass = require('./js/class/Disk.class');
+const DirStruClass = require('./js/class/DirStru.class');
+const FileClass = require('./js/class/File.class');
+const FolderClass = require('./js/class/Folder.class');
+
+//目录结构
+const dirStru = new dirStru();
+
 
 /*界面右键菜单*/
 const {remote} = require('electron');
@@ -30,12 +37,11 @@ let files_show_dom = new Vue({
 });
 const menuCreate = new Menu();
 menuCreate.append(new MenuItem({label: 'new file', click() {
-    let newFile = new File(Folder.currentPath,'新建文件');
+
 
 }}));
 menuCreate.append(new MenuItem({label: 'new folder',click(){
-    let newFolder = new Folder(Folder.currentPath,'新建文件夹');
-    console.log(newFolder.currentPath);
+
 }}));
 
 let header_path = new Vue({

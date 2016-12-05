@@ -1,36 +1,45 @@
+const Disk = require('./js/class/Disk.class');
+const DirStruClass = require('./js/class/DirStru.class');
+
 /**
  * @class 文件夹类
- * @constructor {string,' ',int,int,0}
- * @param size  {3Bytes,2Bytes,1Bytes,1Bytes,1Bytes}
+ * @constructor {所在目录下的索引,文件夹名,文件夹属性,起始盘块,文件夹长度}
  * @time 2016.11.30
  * @return {class}
  */
 class Folder{
-    static getCurrentPath(){
-        return this.currentPath;
-    }
-    static set CurrentPath(value){
-        return this.currentPath;
-    }
-
-    constructor(folderPath,keep2Bytes = ' ',folderType,startBlock,keep1Bytes = 0){
-        this.folderPath = folderPath;
+    constructor(dirStruIndex,folderName = '新建文件夹',folderType = '00001000',startBlock = Disk.startBlock,folderLength = Disk.startBlockLength){
+        this.dirStruIndex = dirStruIndex;
+        this.folderName = folderName;
         this.folderType = folderType;
         this.startBlock = startBlock;
+        this.folderLength = folderLength;
+        this.dirStru = new DirStruClass();
     }
-    get folderPath(){
-        return this.folderPath;
+    get dirStruIndex(){
+        return this.dirStruIndex;
     }
-    set folderPath(value){
-        this.folderPath = value;
+    set dirStruIndex(value){
+        this.dirStruIndex = value;
+    }
+    get folderName(){
+        return this.folderName;
+    }
+    set folderName(value){
+        this.folderName = value;
     }
     get folderType(){
         return this.folderType;
     }
+    set folderType(value){
+        this.folderType = value;
+    }
     get startBlock(){
         return this.startBlock;
     }
+    get folderLength(){
+        return this.folderName;
+    }
 }
-Folder.prototype.currentPath = '/';
 
 module.exports = Folder;

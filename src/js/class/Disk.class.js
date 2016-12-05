@@ -4,4 +4,7 @@ class Disk{
     }
 }
 
+Disk.pstartBlock = 2;
+Disk.startBlockLength = 64;
+
 module.exports = new Disk();
