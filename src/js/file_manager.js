@@ -8,13 +8,16 @@ const Vue = require('vue/dist/vue.min'); //引入Vuejs
 const ipcRenderer = electron.ipcRenderer; //IPC进程通信
 
 /*引入类*/
-const DiskClass = require('./js/class/Disk.class');
-const DirStruClass = require('./js/class/DirStru.class');
-const FileClass = require('./js/class/File.class');
-const FolderClass = require('./js/class/Folder.class');
+const DiskClass = require('./js/class/Disk.class');         //磁盘类
+const DirStruClass = require('./js/class/DirStru.class');   //目录结构类
+const FileClass = require('./js/class/File.class');         //文件类
+const FolderClass = require('./js/class/Folder.class');     //文件夹类
 
 //目录结构
-const dirStru = new dirStru();
+const dirStru = new DirStruClass();
+const disk = new DiskClass();
+dirStru.addFile();
+dirStru.addFolder();
 
 
 /*界面右键菜单*/
@@ -29,16 +32,19 @@ let files_show_dom = new Vue({
     },
     methods:{
         showMenu:(event) => {
-            event.stopPropagation();
-            event.preventDefault();
-            menuCreate.popup(remote.getCurrentWindow());
+            if (event.button === 2){
+                event.stopPropagation();
+                event.preventDefault();
+                menuCreate.popup(remote.getCurrentWindow());
+            }
+
         }
     }
 });
 const menuCreate = new Menu();
 menuCreate.append(new MenuItem({label: 'new file', click() {
-
-
+    dirStru.addFile();
+    DirStruClass.currDir += 'test/';
 }}));
 menuCreate.append(new MenuItem({label: 'new folder',click(){
 
@@ -47,7 +53,14 @@ menuCreate.append(new MenuItem({label: 'new folder',click(){
 let header_path = new Vue({
     el:'#header_path',
     data:{
-        path:'/'
+        path:DirStruClass.currDir
+    },
+    methods:{
+        test:(e)=>{
+            console.log(header_path.path);
+            header_path.path += 'test/';
+            console.log(header_path.path);
+        }
     }
 });
 

@@ -1,5 +1,5 @@
-const FileClass = require('./js/class/File.class');
-const FolderClass = require('./js/class/Folder.class');
+let FileClass = require('./File.class');
+let FolderClass = require('./Folder.class');
 
 /**
  * @class 目录结构
@@ -14,37 +14,41 @@ class DirStru{
 
     constructor(){
         //创建当前目录结构数组
-        this.dirStruArr = new Array();
+        this.dirStru = new Array();
         //当前目录结构数组索引
-        this.dirStruArrIndex = 0;
+        this.dirStruIndex = 0;
     }
     get dirStruArr(){
-        return this.dirStruArr;
+        return this.dirStru;
     }
+    set dirStruArr(value){
+        this.dirStruArr = value;
+    }
+
     get dirStruArrIndex(){
-        return this.dirStruArrIndex;
+        return this.dirStruIndex;
     }
-    set dirStrArrIndex(value){
-        this.dirStruArrIndex += value;
+    set dirStruArrIndex(value){
+        this.dirStruIndex = value;
     }
 
     addFile(){
-        let file = new FileClass(this.dirStruArrIndex());
-        this.dirStruArrIndex(1);
-        this.dirStruArr().push(file);
+        let file = new FileClass(this.dirStruArrIndex);
+        this.dirStruArrIndex += 1;
+        this.dirStruArr.push(file);
     }
     delFile(dirStruArrIndex){
         this.dirStruArr[dirStruArrIndex] = null;
-        this.dirStruArr().splice(dirStruArrIndex,1);
+        this.dirStruArr.splice(dirStruArrIndex,1);
     }
     addFolder(){
-        let folder = new FolderClass(this.dirStruArrIndex());
-        this.dirStruArrIndex(1);
-        this.dirstr().push(folder);
+        let folder = new FolderClass(DirStru,this.dirStruArrIndex);
+        this.dirStruArrIndex += 1;
+        this.dirStru.push(folder);
     }
     delFolder(dirStruArrIndex){
         this.dirStruArr[dirStruArrIndex] = null;
-        this.dirStruArr().splice(dirStruArrIndex,1);
+        this.dirStruArr.splice(dirStruArrIndex,1);
     }
 }
 

@@ -1,10 +1,10 @@
 class Disk{
     constructor(){
-
+        this.test = 1;
     }
 }
 
-Disk.pstartBlock = 2;
+Disk.startBlock = 2;
 Disk.startBlockLength = 64;
 
-module.exports = new Disk();
+module.exports = Disk;

@@ -1,44 +1,50 @@
-const Disk = require('./js/class/Disk.class');
-const DirStruClass = require('./js/class/DirStru.class');
+let Disk = require('./Disk.class');
 
 /**
  * @class 文件夹类
- * @constructor {所在目录下的索引,文件夹名,文件夹属性,起始盘块,文件夹长度}
+ * @constructor {目录结构类(依赖),所在目录下的索引,文件夹名,文件夹属性,起始盘块,文件夹长度}
  * @time 2016.11.30
  * @return {class}
  */
 class Folder{
-    constructor(dirStruIndex,folderName = '新建文件夹',folderType = '00001000',startBlock = Disk.startBlock,folderLength = Disk.startBlockLength){
-        this.dirStruIndex = dirStruIndex;
-        this.folderName = folderName;
-        this.folderType = folderType;
-        this.startBlock = startBlock;
-        this.folderLength = folderLength;
-        this.dirStru = new DirStruClass();
+    constructor(dependency,index,name = '新建文件夹',type = '00001000',sBlock = Disk.startBlock,length = Disk.startBlockLength){
+        this.index = index;
+        this.name = name;
+        this.type = type;
+        this.sBlock = sBlock;
+        this.length = length;
+        this.folderContent = new dependency();  //由于循环依赖，强行使用依赖注入来使用DirStruClass
+
     }
     get dirStruIndex(){
-        return this.dirStruIndex;
+        return this.index;
     }
     set dirStruIndex(value){
-        this.dirStruIndex = value;
+        this.index = value;
     }
     get folderName(){
-        return this.folderName;
+        return this.name;
     }
     set folderName(value){
-        this.folderName = value;
+        this.name = value;
     }
     get folderType(){
-        return this.folderType;
+        return this.type;
     }
     set folderType(value){
-        this.folderType = value;
+        this.type = value;
     }
     get startBlock(){
-        return this.startBlock;
+        return this.sBlock;
     }
     get folderLength(){
-        return this.folderName;
+        return this.length;
+    }
+    get folderStru(){
+        return this.folderContent;
+    }
+    set folderStru(value){
+        this.folderContent = value;
     }
 }
 
