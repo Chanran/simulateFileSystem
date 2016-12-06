@@ -30,6 +30,7 @@ class DirStru{
     }
     set dirStruArrIndex(value){
         this.dirStruIndex = value;
+
     }
 
     addFile(){

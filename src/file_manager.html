@@ -56,6 +56,7 @@
                         </template>
                     </div>
                 </div>
+
                 <div id="files_analysis" class="cell colspan3">
                     <h2 class="align-center">磁盘分析</h2>
                     <div id="disk_analysis" class="align-center">
@@ -67,10 +68,10 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <template v-for="i in 128">
+                                <template v-for="(value,key) in fatArr">
                                     <tr>
-                                        <td>{{i}}</td>
-                                        <td>0</td>
+                                        <td>{{ key }}</td>
+                                        <td>{{ value }}</td>
                                     </tr>
                                 </template>
                             </tbody>

@@ -1,4 +1,5 @@
-let Disk = require('./Disk.class');
+const Disk = require('./Disk.class');
+const Fat = require('./Fat.class');
 
 /**
  * @class 文件夹类
@@ -7,11 +8,16 @@ let Disk = require('./Disk.class');
  * @return {class}
  */
 class Folder{
-    constructor(dependency,index,name = '新建文件夹',type = '00001000',sBlock = Disk.startBlock,length = Disk.startBlockLength){
+    constructor(dependency,index,name = '新建文件夹',type = '00001000',sBlock = Fat.useFreeBlock(),length = Disk.startBlockLength){
         this.index = index;
-        this.name = name;
+        this.name = name + index;
         this.type = type;
-        this.sBlock = sBlock;
+        if (sBlock != -2){
+            this.sBlock = sBlock;
+        }else{
+            console.log('硬盘爆了！');
+            alert('硬盘爆了！');
+        }
         this.length = length;
         this.folderContent = new dependency();  //由于循环依赖，强行使用依赖注入来使用DirStruClass
 

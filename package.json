@@ -17,6 +17,7 @@
   "dependencies": {
     "electron-debug": "^1.0.1",
     "jquery": "^3.1.1",
-    "metro-dist": "^3.0.15"
+    "metro-dist": "^3.0.15",
+    "vue": "^2.1.4"
   }
 }

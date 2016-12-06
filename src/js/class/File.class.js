@@ -1,5 +1,6 @@
 const Disk = require('./Disk.class');
-const DirStru = require('././DirStru.class');
+const Fat = require('./Fat.class');
+const DirStru = require('./DirStru.class');
 
 /**
  * @class 文件类
@@ -8,12 +9,18 @@ const DirStru = require('././DirStru.class');
  * @return {class}
  */
 class File{
-    constructor(index,name = '新建文本文件',type = 'txt' ,property = '00000100',sBlock = Disk.startBlock,length = Disk.startBlockLength){
+    constructor(index,name = '新建文件',type = 'txt' ,property = '00000100',sBlock = Fat.useFreeBlock(),length = Disk.startBlockLength){
         this.index = index;
-        this.name = name;
+        this.name = name + index+'.'+type;
         this.type = type;
         this.property = property;
-        this.sBlock = sBlock;
+        if (sBlock != -2){
+            this.sBlock = sBlock;
+        }else{
+            console.log('硬盘爆了！');
+            alert('硬盘爆了！');
+        }
+
         this.length = length;
     }
     get dirStruIndex(){
