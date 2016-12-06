@@ -24,42 +24,14 @@ dirStru.addFolder();
 const {remote} = require('electron');
 const {Menu, MenuItem} = remote;
 
-//创建新文件或者新文件夹菜单
-let files_show_dom = new Vue({
-    el:'#files_show',
-    data:{
-        test: 'test'
-    },
-    methods:{
-        showMenu:(event) => {
-            if (event.button === 2){
-                event.stopPropagation();
-                event.preventDefault();
-                menuCreate.popup(remote.getCurrentWindow());
-            }
-
-        }
-    }
-});
-const menuCreate = new Menu();
-menuCreate.append(new MenuItem({label: 'new file', click() {
-    dirStru.addFile();
-    DirStruClass.currDir += 'test/';
-}}));
-menuCreate.append(new MenuItem({label: 'new folder',click(){
-
-}}));
-
 let header_path = new Vue({
     el:'#header_path',
     data:{
         path:DirStruClass.currDir
     },
     methods:{
-        test:(e)=>{
-            console.log(header_path.path);
-            header_path.path += 'test/';
-            console.log(header_path.path);
+        changePath:(value)=>{
+            header_path.path = value;
         }
     }
 });
@@ -77,3 +49,74 @@ let files_analysis = new Vue({
 
     }
 });
+
+
+//创建新文件或者新文件夹菜单
+let files_show = new Vue({
+    el:'#files_show',
+    data:{
+        folders:[],
+        files:[]
+    },
+    methods:{
+        showMenu:(event) => {
+            if (event.button === 2){
+                menuCreate.popup(remote.getCurrentWindow());
+            }
+        },
+        addFile:(fileJson) => {
+            files_show.files.push(fileJson);
+        },
+        editFile:(fileJson) => {
+
+        },
+        showFileMenu:(event,fileJson) => {
+            if (event.button === 2){
+                event.stopPropagation();
+                menuEdit.popup(remote.getCurrentWindow());
+            }
+        },
+        addFolder:(folderJson) => {
+            files_show.folders.push(folderJson);
+        },
+        enterFolder:(folderJson) => {
+            /*改变当前路径*/
+            DirStruClass.currDir += folderJson.name+'/';
+            header_path.changePath(DirStruClass.currDir);
+        },
+        showFolderMenu:(event,folderJson) => {
+            if (event.button === 2){
+                event.stopPropagation();
+                menuEdit.popup(remote.getCurrentWindow());
+            }
+        }
+    }
+});
+
+/*新建文件或文件夹的菜单*/
+const menuCreate = new Menu();
+menuCreate.append(new MenuItem({label: 'new file', click() {
+
+    files_show.addFile(dirStru.addFile());
+
+}}));
+menuCreate.append(new MenuItem({label: 'new folder',click(){
+
+    files_show.addFolder(dirStru.addFolder());
+
+}}));
+
+/*编辑文件或者文件夹的菜单*/
+const menuEdit = new Menu();
+menuEdit.append(new MenuItem({label: '打开',click(){
+
+}}));
+menuEdit.append(new MenuItem({label: '重命名',click(){
+
+}}));
+menuEdit.append(new MenuItem({label: '删除',click(){
+
+}}));
+menuEdit.append(new MenuItem({label: '属性',click(){
+
+}}));

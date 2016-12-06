@@ -16,7 +16,7 @@
             <div class="row cell12">
                 <div class="cell colspan2">
                 </div>
-                <div id="path" class="cell colspan10" v-on:click="test">
+                <div id="path" class="cell colspan10">
                     <span class="mif-folder fg-yellow"></span> 路径: <span class="fg-red">{{path}}</span>
                 </div>
             </div>
@@ -42,7 +42,18 @@
                 </div>
                 <div id="files_show" class="cell colspan5">
                     <div class="show-content" v-on:mousedown="showMenu">
-                        {{test}}
+                        <template v-for="folder in folders">
+                            <div class="files-show-item" v-on:dblclick="enterFolder(folder)" v-on:mousedown="showFolderMenu(event,folder)">
+                                <img class="files-show-img" src="./icon/folder.ico" v-bind:alt="folder.name" v-bind:index="folder.index">
+                                <span class="files-show-text">{{folder.name}}</span>
+                            </div>
+                        </template>
+                        <template v-for="file in files">
+                            <div class="files-show-item" v-on:click="editFile(file)" v-on:mousedown="showFileMenu(event,file)">
+                                <img class="files-show-img" src="./icon/notepad.ico" v-bind:alt="file.name" v-bind:index="file.index">
+                                <span class="files-show-text">{{file.name}}</span>
+                            </div>
+                        </template>
                     </div>
                 </div>
                 <div id="files_analysis" class="cell colspan3">

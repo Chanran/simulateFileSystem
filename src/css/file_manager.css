@@ -98,7 +98,34 @@ body{
     border-bottom: 1px solid gray;
 }
 
+/*file_show start*/
+
 .show-content{
     margin:20px 20px;
     height:95%;
 }
+.files-show-item{
+    display:inline-block;
+    margin:10px 10px;
+    width:60px;
+    height:90px;
+    border: 1px solid #e0e5e6;
+    border-radius:5px;
+}
+.files-show-item:hover{
+    border:1px solid #8e8e8e;
+}
+
+.files-show-img{
+    position: relative;
+    width:60px;
+    height:70px;
+}
+.files-show-text{
+    position:absolute;
+    font-size:11px;
+    top:-10;
+    left:10;
+}
+
+/*file_show end*/
