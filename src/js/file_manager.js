@@ -41,29 +41,24 @@ let header_path = new Vue({
 let disk_analysis = new Vue({
     el: '#disk_analysis',
     data: {
-        fatArr: Fat.fatArr
+        fatArr: Fat.fatArr,
     },
     methods: {
         updateFat: (fatArr) => {
-            console.log(disk_analysis.fatArr[2]);
-            console.log(fatArr[2]);
-            Vue.set(disk_analysis.fatArr,2,fatArr[2]);
             //vue不能直接数组赋值，要使用vue的变异方法，不然视图不会更新。
-            // for (let i = 0; i < disk_analysis.fatArr.length; i++){
-            //     console.log(disk_analysis.fatArr[i]);
-            //     console.log(fatArr[i]);
-            //     if (disk_analysis.fatArr[i] != fatArr[i]){
-            //         console.log('触发更新。');
-            //         Vue.set(disk_analysis.fatArr,i,fatArr[i]);
-            //     }
-            // }
+            for (let i = 0; i < disk_analysis.fatArr.length; i++){
+                Vue.set(disk_analysis.fatArr,i,fatArr[i]);
+            }
         }
     }
 });
 
-let files_analysis = new Vue({
-    el: '#files_analysis',
+let files_opened = new Vue({
+    el: '#files_opened',
     data: {
+
+    },
+    methods: {
 
     }
 });
@@ -133,6 +128,7 @@ menuCreate.append(new MenuItem({
     click() {
 
         files_show.addFolder(dirStru.addFolder());
+        disk_analysis.updateFat(Fat.fatArr);
 
     }
 }));

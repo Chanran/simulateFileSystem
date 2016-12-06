@@ -7,7 +7,7 @@ const child = require('child_process');
 
 /*变量*/
 let mainWindow; //主界面
-let tray = null; //tray
+let appIcon = null; //appIcon
 
 app.on('ready', () => {
     // 创建主界面
@@ -19,13 +19,13 @@ app.on('ready', () => {
     mainWindow.loadURL(`file://${__dirname}/src/index.html`);
 
     // 打开调试工具
-    mainWindow.webContents.openDevTools();
+    //mainWindow.webContents.openDevTools();
     mainWindow.on('closed', function() {
         mainWindow = null;
     });
 
-    //设置dock的图标
-    tray = new Tray('src/icon/os.png');
+    //设置dock的图标(Linux会挂的，先不设置)
+    //appIcon = new Tray('./src/icon/os.png');
 });
 // Quit when all windows are closed.
 app.on('window-all-closed', function() {

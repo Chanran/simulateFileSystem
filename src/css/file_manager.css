@@ -98,10 +98,6 @@ body{
     border-bottom: 1px solid gray;
 }
 
-.scroll{
-    overflow-y:scroll;
-}
-
 /*file_show start*/
 
 .show-content{
