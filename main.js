@@ -19,7 +19,7 @@ app.on('ready', () => {
     mainWindow.loadURL(`file://${__dirname}/src/index.html`);
 
     // 打开调试工具
-    //mainWindow.webContents.openDevTools();
+    mainWindow.webContents.openDevTools();
     mainWindow.on('closed', function() {
         mainWindow = null;
     });
@@ -59,6 +59,20 @@ ipcMain.on('file_manager',()=>{
         show:true
     });
 
+    //打开调试工具
     file_manager.webContents.openDevTools();
     file_manager.loadURL(`file://${__dirname}/src/file_manager.html`);
+});
+
+/*打开文件管理页面*/
+ipcMain.on('edit_file',()=>{
+    let edit_file = new BrowserWindow({
+        width:800,
+        height:800,
+        show:true
+    });
+
+    //打开调试工具
+    edit_file.webContents.openDevTools();
+    edit_file.loadURL(`file://${__dirname}/src/editFile.html`);
 });

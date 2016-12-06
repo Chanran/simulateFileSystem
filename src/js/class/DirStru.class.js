@@ -37,7 +37,7 @@ class DirStru{
         let file = new FileClass(this.dirStruArrIndex);
         this.dirStruArrIndex += 1;
         this.dirStruArr.push(file);
-        return {'index':file.dirStruIndex,'name':file.fileName,'type':'文件'};
+        return file;
     }
     delFile(dirStruArrIndex){
         this.dirStruArr[dirStruArrIndex] = null;
@@ -47,7 +47,7 @@ class DirStru{
         let folder = new FolderClass(DirStru,this.dirStruArrIndex);
         this.dirStruArrIndex += 1;
         this.dirStru.push(folder);
-        return {'index':folder.folderName,'name':folder.folderName,'type':'文件夹'};
+        return folder;
     }
     delFolder(dirStruArrIndex){
         this.dirStruArr[dirStruArrIndex] = null;

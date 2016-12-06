@@ -49,7 +49,7 @@
                             </div>
                         </template>
                         <template v-for="file in files">
-                            <div class="files-show-item" v-on:click="editFile(file)" v-on:mousedown="showFileMenu(event,file)">
+                            <div class="files-show-item" v-on:dblclick="editFile(file)" v-on:mousedown="showFileMenu(event,file)">
                                 <img class="files-show-img" src="./icon/notepad.ico" v-bind:alt="file.name" v-bind:index="file.index">
                                 <span class="files-show-text">{{file.name}}</span>
                             </div>

@@ -17,6 +17,10 @@ const Fat = require('./js/class/Fat.class');
 const dirStru = new DirStruClass();
 const disk = new DiskClass();
 
+//右键文件或者文件夹的时候保存当前点击的元素
+let fileNow = null;
+let folderNow = null;
+
 /*界面右键菜单*/
 const {
     remote
@@ -63,6 +67,16 @@ let files_opened = new Vue({
     }
 });
 
+let edit_file_content = new Vue({
+    el:'#edit_file_content',
+    data:{
+        file:null
+    },
+    methods:{
+
+    }
+});
+
 
 //创建新文件或者新文件夹菜单
 let files_show = new Vue({
@@ -79,34 +93,39 @@ let files_show = new Vue({
             }
         },
         //新建文件
-        addFile: (fileJson) => {
-            files_show.files.push(fileJson);
+        addFile: (file) => {
+            files_show.files.push(file);
         },
         //编辑文件
-        editFile: (fileJson) => {
+        editFile: (file) => {
+            fileNow = file;
 
+            ipcRenderer.send('edit_file');
         },
         //右键某个文件，出现菜单
-        showFileMenu: (event, fileJson) => {
+        showFileMenu: (event, file) => {
             if (event.button === 2) {
                 event.stopPropagation();
+                fileNow = file;
                 menuFileEdit.popup(remote.getCurrentWindow());
             }
         },
         //添加文件夹
-        addFolder: (folderJson) => {
-            files_show.folders.push(folderJson);
+        addFolder: (folder) => {
+            files_show.folders.push(folder);
         },
         //双击文件夹进入文件夹
-        enterFolder: (folderJson) => {
+        enterFolder: (folder) => {
+            folderNow = folder;
             /*改变当前路径*/
-            DirStruClass.currDir += folderJson.name + '/';
+            DirStruClass.currDir += folder.fileName + '/';
             header_path.changePath(DirStruClass.currDir);
         },
         //文件夹菜单
-        showFolderMenu: (event, folderJson) => {
+        showFolderMenu: (event, folder) => {
             if (event.button === 2) {
                 event.stopPropagation();
+                folderNow = folder;
                 menuFolderEdit.popup(remote.getCurrentWindow());
             }
         }
@@ -138,7 +157,7 @@ const menuFileEdit = new Menu();
 menuFileEdit.append(new MenuItem({
     label: '编辑文件',
     click() {
-
+        files_show.editFile(fileNow);
     }
 }));
 menuFileEdit.append(new MenuItem({
@@ -164,7 +183,7 @@ const menuFolderEdit = new Menu();
 menuFolderEdit.append(new MenuItem({
     label: '打开文件夹',
     click() {
-
+        files_show.enterFolder(folderNow);
     }
 }));
 menuFolderEdit.append(new MenuItem({

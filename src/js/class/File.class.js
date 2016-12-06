@@ -20,8 +20,8 @@ class File{
             console.log('硬盘爆了！');
             alert('硬盘爆了！');
         }
-
         this.length = length;
+        this.content = '';
     }
     get dirStruIndex(){
         return this.index;
@@ -56,6 +56,12 @@ class File{
     }
     set fileLength(value){
         this.length = value;
+    }
+    get fileContent(){
+        return this.content;
+    }
+    set fileContent(value){
+        this.content = value;
     }
 }
 
