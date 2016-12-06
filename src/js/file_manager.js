@@ -40,6 +40,9 @@ let disk_analysis = new Vue({
     el:'#disk_analysis',
     data:{
 
+    },
+    methods:{
+
     }
 });
 
@@ -59,35 +62,42 @@ let files_show = new Vue({
         files:[]
     },
     methods:{
+        //右键空白区域出现新建文件或文件夹菜单
         showMenu:(event) => {
             if (event.button === 2){
                 menuCreate.popup(remote.getCurrentWindow());
             }
         },
+        //新建文件
         addFile:(fileJson) => {
             files_show.files.push(fileJson);
         },
+        //编辑文件
         editFile:(fileJson) => {
 
         },
+        //右键某个文件，出现菜单
         showFileMenu:(event,fileJson) => {
             if (event.button === 2){
                 event.stopPropagation();
-                menuEdit.popup(remote.getCurrentWindow());
+                menuFileEdit.popup(remote.getCurrentWindow());
             }
         },
+        //添加文件夹
         addFolder:(folderJson) => {
             files_show.folders.push(folderJson);
         },
+        //双击文件夹进入文件夹
         enterFolder:(folderJson) => {
             /*改变当前路径*/
             DirStruClass.currDir += folderJson.name+'/';
             header_path.changePath(DirStruClass.currDir);
         },
+        //文件夹菜单
         showFolderMenu:(event,folderJson) => {
             if (event.button === 2){
                 event.stopPropagation();
-                menuEdit.popup(remote.getCurrentWindow());
+                menuFolderEdit.popup(remote.getCurrentWindow());
             }
         }
     }
@@ -106,17 +116,31 @@ menuCreate.append(new MenuItem({label: 'new folder',click(){
 
 }}));
 
-/*编辑文件或者文件夹的菜单*/
-const menuEdit = new Menu();
-menuEdit.append(new MenuItem({label: '打开',click(){
+/*文件的菜单*/
+const menuFileEdit = new Menu();
+menuFileEdit.append(new MenuItem({label: '编辑文件',click(){
 
 }}));
-menuEdit.append(new MenuItem({label: '重命名',click(){
+menuFileEdit.append(new MenuItem({label: '重命名',click(){
 
 }}));
-menuEdit.append(new MenuItem({label: '删除',click(){
+menuFileEdit.append(new MenuItem({label: '删除',click(){
 
 }}));
-menuEdit.append(new MenuItem({label: '属性',click(){
+menuFileEdit.append(new MenuItem({label: '属性',click(){
+
+}}));
+/*文件夹的菜单*/
+const menuFolderEdit = new Menu();
+menuFolderEdit.append(new MenuItem({label: '打开文件夹',click(){
+
+}}));
+menuFolderEdit.append(new MenuItem({label: '重命名',click(){
+
+}}));
+menuFolderEdit.append(new MenuItem({label: '删除',click(){
+
+}}));
+menuFolderEdit.append(new MenuItem({label: '属性',click(){
 
 }}));
