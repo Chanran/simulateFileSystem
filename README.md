@@ -1,13 +1,20 @@
 # simulate file system
 
+## 环境依赖
+
+- git: **2.9.3**
+- nodejs: **7.2.0**
+- npm: **3.10.9**
+
 ## 使用说明
-> git clone git@github.com:Chanran/simulateFileSystem.git
 
-> cd simulateFileSystem
+`git clone git@github.com:Chanran/simulateFileSystem.git`
 
-> npm i -d
+`cd simulateFileSystem`
 
-> npm start
+`npm i -d`
+
+`npm start`
 
 ## 使用的技术
 - 页面:html,css,javascript,metro UI
@@ -16,4 +23,4 @@
 - 套壳:electron
 
 ***
-*version: v0.0.2 powered by blue*
+*version: v0.5.0 powered by blue*
