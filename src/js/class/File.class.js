@@ -1,6 +1,7 @@
 const Disk = require('./Disk.class');
 const Fat = require('./Fat.class');
 const DirStru = require('./DirStru.class');
+const Block = require('./Block.class');
 
 /**
  * @class 文件类
@@ -9,7 +10,7 @@ const DirStru = require('./DirStru.class');
  * @return {class}
  */
 class File{
-    constructor(index,name = '新建文件',type = 'txt' ,property = '00000100',sBlock = Fat.useFreeBlock(),length = Disk.startBlockLength){
+    constructor(index,name = '新建文件',type = 'txt' ,property = '00000100',sBlock = Fat.useFreeBlock(),length = Block.blockLength){
         this.index = index;
         this.name = name + index+'.'+type;
         this.type = type;
@@ -64,5 +65,4 @@ class File{
         this.content = value;
     }
 }
-
 module.exports = File;

@@ -65,14 +65,14 @@ ipcMain.on('file_manager',()=>{
 });
 
 /*打开文件管理页面*/
-ipcMain.on('edit_file',()=>{
+ipcMain.on('edit_file',(event,openedFileIndex,file)=>{
     let edit_file = new BrowserWindow({
         width:800,
         height:800,
         show:true
     });
-
     //打开调试工具
     edit_file.webContents.openDevTools();
-    edit_file.loadURL(`file://${__dirname}/src/editFile.html`);
+    const url = encodeURI();
+    edit_file.loadURL(`file://${__dirname}/src/editFile.html?openedFileIndex=${openedFileIndex}&fileIndex=${file.index}&fileName=${file.name}&fileContent=${file.content}`);
 });

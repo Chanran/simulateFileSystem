@@ -3,5 +3,5 @@ class Block{
 
     }
 }
-
+Block.blockLength = 64;
 module.exports = Block;

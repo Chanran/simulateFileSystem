@@ -1,5 +1,6 @@
 const Disk = require('./Disk.class');
 const Fat = require('./Fat.class');
+const Block = require('./Block.class');
 
 /**
  * @class 文件夹类
@@ -8,7 +9,7 @@ const Fat = require('./Fat.class');
  * @return {class}
  */
 class Folder{
-    constructor(dependency,index,name = '新建文件夹',type = '00001000',sBlock = Fat.useFreeBlock(),length = Disk.startBlockLength){
+    constructor(dependency,index,name = '新建文件夹',type = '00001000',sBlock = Fat.useFreeBlock(),length = Block.blockLength){
         this.index = index;
         this.name = name + index;
         this.type = type;

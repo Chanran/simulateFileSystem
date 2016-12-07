@@ -1,5 +1,5 @@
-let FileClass = require('./File.class');
-let FolderClass = require('./Folder.class');
+const FileClass = require('./File.class');
+const FolderClass = require('./Folder.class');
 
 /**
  * @class 目录结构
@@ -11,7 +11,6 @@ class DirStru{
     static getCurrDir(){
         return DirStru.currDir;
     }
-
     constructor(){
         //创建当前目录结构数组
         this.dirStru = new Array();
@@ -24,15 +23,12 @@ class DirStru{
     set dirStruArr(value){
         this.dirStruArr = value;
     }
-
     get dirStruArrIndex(){
         return this.dirStruIndex;
     }
     set dirStruArrIndex(value){
         this.dirStruIndex = value;
-
     }
-
     addFile(){
         let file = new FileClass(this.dirStruArrIndex);
         this.dirStruArrIndex += 1;
@@ -54,7 +50,5 @@ class DirStru{
         this.dirStruArr.splice(dirStruArrIndex,1);
     }
 }
-
 DirStru.currDir = '/';
-
 module.exports = DirStru;

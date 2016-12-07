@@ -13,8 +13,10 @@ const DirStruClass = require('./js/class/DirStru.class'); //目录结构类
 const FileClass = require('./js/class/File.class'); //文件类
 const FolderClass = require('./js/class/Folder.class'); //文件夹类
 const Fat = require('./js/class/Fat.class');
+const Ram = require('./js/class/Ram.class');
 //目录结构
 const dirStru = new DirStruClass();
+//硬盘
 const disk = new DiskClass();
 
 //右键文件或者文件夹的时候保存当前点击的元素
@@ -67,15 +69,6 @@ let files_opened = new Vue({
     }
 });
 
-let edit_file_content = new Vue({
-    el:'#edit_file_content',
-    data:{
-        file:null
-    },
-    methods:{
-
-    }
-});
 
 
 //创建新文件或者新文件夹菜单
@@ -99,8 +92,9 @@ let files_show = new Vue({
         //编辑文件
         editFile: (file) => {
             fileNow = file;
-
-            ipcRenderer.send('edit_file');
+            Ram.openedFiles.push(fileNow);
+            Ram.isSaved.push(0);
+            ipcRenderer.send('edit_file',Ram.openedFiles.length-1,fileNow);
         },
         //右键某个文件，出现菜单
         showFileMenu: (event, file) => {
@@ -139,7 +133,6 @@ menuCreate.append(new MenuItem({
     click() {
         files_show.addFile(dirStru.addFile());
         disk_analysis.updateFat(Fat.fatArr);
-
     }
 }));
 menuCreate.append(new MenuItem({

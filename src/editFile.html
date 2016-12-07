@@ -1,13 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>编辑文件</title>
+    <link rel="stylesheet" href="../node_modules/metro-dist/css/metro.css">
+    <link rel="stylesheet" href="../node_modules/metro-dist/css/metro-colors.min.css">
+    <link rel="stylesheet" href="../node_modules/metro-dist/css/metro-icons.min.css">
+    <link rel="stylesheet" href="./css/edit_file.css">
 </head>
+
 <body>
     <div id="edit_file_content">
-        <textarea cols="30" rows="10">{{file}}</textarea>
+        <ul class="horizontal-menu">
+            <li class="file-menu-item"><a href="#" v-on:click="saveFile(getArr.fileIndex)">Save</a></li>
+            <li class="file-menu-item"><a href="#">Quit</a></li>
+            <li class="file-name">{{getArr.fileName}}</li>
+        </ul>
+        <div>
+            <textarea cols="100" rows="33" style="overflow-y:auto;font-size:20px;width:100%;height:100%;">{{getArr.fileContent}}</textarea>
+        </div>
     </div>
-    <script src="./js/file_manager.js" charset="utf-8"></script>
+    <script src="./js/edit_file.js" charset="utf-8"></script>
 </body>
+
 </html>
