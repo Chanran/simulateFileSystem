@@ -1,4 +1,5 @@
 'use strict';
+
 const electron = require('electron'); //electron
 const {app,Tray} = require('electron');
 const BrowserWindow = electron.BrowserWindow; //electron界面
@@ -52,8 +53,9 @@ ipcMain.on('new_terminal',()=>{
 });
 
 /*打开文件管理页面*/
+let file_manager = null;
 ipcMain.on('file_manager',()=>{
-    let file_manager = new BrowserWindow({
+    file_manager = new BrowserWindow({
         width:1600,
         height:1100,
         show:true
@@ -64,15 +66,25 @@ ipcMain.on('file_manager',()=>{
     file_manager.loadURL(`file://${__dirname}/src/file_manager.html`);
 });
 
-/*打开文件管理页面*/
-ipcMain.on('edit_file',(event,openedFileIndex,file)=>{
-    let edit_file = new BrowserWindow({
+/*打开编辑文件页面*/
+let edit_file = null;
+ipcMain.on('edit_file',(event,ramOpenedFiles,ramIsSaved,openedFileIndex,file)=>{
+    edit_file = new BrowserWindow({
         width:800,
         height:800,
         show:true
     });
+    ramOpenedFiles = JSON.stringify(ramOpenedFiles);
+    ramIsSaved = JSON.stringify(ramIsSaved);
     //打开调试工具
     edit_file.webContents.openDevTools();
-    const url = encodeURI();
-    edit_file.loadURL(`file://${__dirname}/src/editFile.html?openedFileIndex=${openedFileIndex}&fileIndex=${file.index}&fileName=${file.name}&fileContent=${file.content}`);
+    edit_file.loadURL(`file://${__dirname}/src/editFile.html?ramOpenedFiles=${ramOpenedFiles}&ramIsSaved=${ramIsSaved}&openedFileIndex=${openedFileIndex}&fileIndex=${file.index}&fileName=${file.name}&fileContent=${file.content}`);
+});
+
+ipcMain.on('closeFile',(event,ramOpenedFiles,ramIsSaved,openedFileIndex,fileIndex,fileContent)=>{
+
+    console.log(ramOpenedFiles);
+    console.log(ramIsSaved);
+
+    file_manager.webContents.send();
 });

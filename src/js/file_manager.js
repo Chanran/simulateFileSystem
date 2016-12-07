@@ -13,6 +13,8 @@ const DirStruClass = require('./js/class/DirStru.class'); //目录结构类
 const FileClass = require('./js/class/File.class'); //文件类
 const FolderClass = require('./js/class/Folder.class'); //文件夹类
 const Fat = require('./js/class/Fat.class');
+
+//正在打开的文件
 const Ram = require('./js/class/Ram.class');
 //目录结构
 const dirStru = new DirStruClass();
@@ -94,7 +96,7 @@ let files_show = new Vue({
             fileNow = file;
             Ram.openedFiles.push(fileNow);
             Ram.isSaved.push(0);
-            ipcRenderer.send('edit_file',Ram.openedFiles.length-1,fileNow);
+            ipcRenderer.send('edit_file',Ram.openedFiles,Ram.isSaved,Ram.openedFiles.length-1,fileNow);
         },
         //右键某个文件，出现菜单
         showFileMenu: (event, file) => {
