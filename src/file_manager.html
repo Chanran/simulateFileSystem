@@ -89,13 +89,13 @@
                                     <th style="text-align:center">文件路径</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <template v-for="j in 20">
+                            <tbody v-if="openedFilesArr">
+                                <template v-for="(file,key) in openedFilesArr">
                                     <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                        <td>{{file.name}}</td>
+                                        <td>{{file.property}}</td>
+                                        <td>{{file.sBlock}}</td>
+                                        <td>/</td>
                                     </tr>
                                 </template>
                             </tbody>

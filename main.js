@@ -68,23 +68,19 @@ ipcMain.on('file_manager',()=>{
 
 /*打开编辑文件页面*/
 let edit_file = null;
-ipcMain.on('edit_file',(event,ramOpenedFiles,ramIsSaved,openedFileIndex,file)=>{
+ipcMain.on('edit_file',(event,ramOpenedFiles,file)=>{
     edit_file = new BrowserWindow({
         width:800,
         height:800,
         show:true
     });
     ramOpenedFiles = JSON.stringify(ramOpenedFiles);
-    ramIsSaved = JSON.stringify(ramIsSaved);
     //打开调试工具
     edit_file.webContents.openDevTools();
-    edit_file.loadURL(`file://${__dirname}/src/editFile.html?ramOpenedFiles=${ramOpenedFiles}&ramIsSaved=${ramIsSaved}&openedFileIndex=${openedFileIndex}&fileIndex=${file.index}&fileName=${file.name}&fileContent=${file.content}`);
+    edit_file.loadURL(`file://${__dirname}/src/edit_file.html?ramOpenedFiles=${ramOpenedFiles}&fileIndex=${file.index}&fileName=${file.name}&fileContent=${file.content}`);
 });
 
 ipcMain.on('closeFile',(event,ramOpenedFiles,ramIsSaved,openedFileIndex,fileIndex,fileContent)=>{
 
-    console.log(ramOpenedFiles);
-    console.log(ramIsSaved);
-
-    file_manager.webContents.send();
+    file_manager.webContents.send('closeFile',ramOpenedFiles,ramIsSaved,openedFileIndex,fileIndex,fileContent);
 });

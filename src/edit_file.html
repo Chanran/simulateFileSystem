@@ -14,7 +14,7 @@
     <div id="edit_file_content">
         <ul class="horizontal-menu">
             <li class="file-menu-item"><a href="#" v-on:click="saveFile(getArr.ramOpenedFiles,getArr.ramIsSaved,getArr.openedFileIndex)">Save</a></li>
-            <li class="file-menu-item"><a href="#" v-on:click="quit(getArr.ramOpenedFiles,getArr.ramIsSaved,getArr.openedFileIndex,getArr.fileContent)">Quit</a></li>
+            <li class="file-menu-item"><a href="#" v-on:click="quit(getArr.ramOpenedFiles,getArr.ramIsSaved,getArr.openedFileIndex,getArr.fileIndex,getArr.fileName,getArr.fileContent)">Quit</a></li>
             <li class="file-name">{{getArr.fileName}}</li>
         </ul>
         <div>

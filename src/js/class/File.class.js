@@ -23,6 +23,7 @@ class File{
         }
         this.length = length;
         this.content = '';
+        this.isSaved = 1;
     }
     get dirStruIndex(){
         return this.index;
@@ -63,6 +64,12 @@ class File{
     }
     set fileContent(value){
         this.content = value;
+    }
+    get isSaved(){
+        return this.isSaved;
+    }
+    set isSaved(value){
+        this.isSaved = value;
     }
 }
 module.exports = File;

@@ -54,8 +54,8 @@ let disk_analysis = new Vue({
     methods: {
         updateFat: (fatArr) => {
             //vue不能直接数组赋值，要使用vue的变异方法，不然视图不会更新。
-            for (let i = 0; i < disk_analysis.fatArr.length; i++){
-                Vue.set(disk_analysis.fatArr,i,fatArr[i]);
+            for (let i = 0; i < disk_analysis.fatArr.length; i++) {
+                Vue.set(disk_analysis.fatArr, i, fatArr[i]);
             }
         }
     }
@@ -64,10 +64,23 @@ let disk_analysis = new Vue({
 let files_opened = new Vue({
     el: '#files_opened',
     data: {
-
+        openedFilesArr: Ram.openedFiles,
     },
     methods: {
-
+        updateData: (openedFiles,isSaved) => {
+            if (openedFiles == null) {
+                files_opened.openedFilesArr = null;
+                files_opened.isSavedArr = null;
+            } else {
+                let tmp1 = new Array();
+                let tmp2 = new Array();
+                for (let i = 0; i < files_opened.openedFilesArr.length; i++) {
+                    if (files_opened.isSavedArr[i] === 1) {
+                        Vue.set(files_opened.openedFilesArr, i, openedFiles[i]);
+                    }
+                }
+            }
+        }
     }
 });
 
@@ -93,10 +106,10 @@ let files_show = new Vue({
         },
         //编辑文件
         editFile: (file) => {
+            file.isSaved(0);
             fileNow = file;
             Ram.openedFiles.push(fileNow);
-            Ram.isSaved.push(0);
-            ipcRenderer.send('edit_file',Ram.openedFiles,Ram.isSaved,Ram.openedFiles.length-1,fileNow);
+            ipcRenderer.send('edit_file', Ram.openedFiles, fileNow);
         },
         //右键某个文件，出现菜单
         showFileMenu: (event, file) => {
@@ -199,3 +212,14 @@ menuFolderEdit.append(new MenuItem({
 
     }
 }));
+
+
+ipcRenderer.on('closeFile', (event, ramOpenedFiles, ramIsSaved, openedFileIndex, fileIndex, fileContent) => {
+    Ram.openedFiles = ramOpenedFiles;
+    Ram.isSaved = ramIsSaved;
+    dirStru.dirStruArr[fileIndex].fileContent = fileContent;
+    if (Ram.openedFiles.length === 0) {
+        Ram.openedFiles = null;
+    }
+    files_opened.updateData(Ram.openedFiles, Ram.ramIsSaved);
+});

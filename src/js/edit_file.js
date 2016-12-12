@@ -9,8 +9,6 @@ const ipcRenderer = electron.ipcRenderer;
 
 let getArr = {
     'ramOpenedFiles':JSON.parse(url.getQueryString('ramOpenedFiles')),
-    'ramIsSaved':JSON.parse(url.getQueryString('ramIsSaved')),
-    'openedFileIndex':url.getQueryString('openedFileIndex'),
     'fileIndex':url.getQueryString('fileIndex'),
     'fileName':url.getQueryString('fileName'),
     'fileContent':url.getQueryString('fileContent')
@@ -22,13 +20,15 @@ let edit_file_content = new Vue({
         getArr:getArr
     },
     methods:{
-        saveFile:(ramOpenedFiles,ramIsSaved,openedFileIndex)=>{
-            ramIsSaved[openedFileIndex] = 1; //保存文件
+        saveFile:()=>{
+            //应该在main.js弄一个全局的数据共享，共享Ram.openedFiles
         },
         quit:(ramOpenedFiles,ramIsSaved,openedFileIndex,fileIndex,fileContent)=>{
+
             if (ramIsSaved[openedFileIndex] === 0){
                 if(confirm('您还没保存文件，是否需要保存文件？')){
                     edit_file_content.saveFile(ramOpenedFiles,ramIsSaved,openedFileIndex);
+                    ipcRenderer.send('closeFile',ramOpenedFiles,ramIsSaved,openedFileIndex,fileIndex,fileContent);
                     window.close();
                 }else{
                     ipcRenderer.send('closeFile',ramOpenedFiles,ramIsSaved,openedFileIndex,fileIndex,fileContent);
