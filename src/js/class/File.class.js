@@ -65,11 +65,5 @@ class File{
     set fileContent(value){
         this.content = value;
     }
-    get isSaved(){
-        return this.isSaved;
-    }
-    set isSaved(value){
-        this.isSaved = value;
-    }
 }
 module.exports = File;

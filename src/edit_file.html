@@ -13,12 +13,12 @@
 <body>
     <div id="edit_file_content">
         <ul class="horizontal-menu">
-            <li class="file-menu-item"><a href="#" v-on:click="saveFile(getArr.ramOpenedFiles,getArr.ramIsSaved,getArr.openedFileIndex)">Save</a></li>
-            <li class="file-menu-item"><a href="#" v-on:click="quit(getArr.ramOpenedFiles,getArr.ramIsSaved,getArr.openedFileIndex,getArr.fileIndex,getArr.fileName,getArr.fileContent)">Quit</a></li>
+            <li class="file-menu-item"><a href="#" v-on:click="saveFile()">Save</a></li>
+            <li class="file-menu-item"><a href="#" v-on:click="quit()">Quit</a></li>
             <li class="file-name">{{getArr.fileName}}</li>
         </ul>
         <div>
-            <textarea class="file-content" cols="100" rows="33">{{getArr.fileContent}}</textarea>
+            <textarea id="fileContent" class="file-content" cols="100" rows="33">{{getArr.fileContent}}</textarea>
         </div>
     </div>
     <script src="./js/edit_file.js" charset="utf-8"></script>

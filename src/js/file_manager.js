@@ -13,6 +13,7 @@ const DirStruClass = require('./js/class/DirStru.class'); //目录结构类
 const FileClass = require('./js/class/File.class'); //文件类
 const FolderClass = require('./js/class/Folder.class'); //文件夹类
 const Fat = require('./js/class/Fat.class');
+const storage = require('./js/util/localStorage.class');
 
 //正在打开的文件
 const Ram = require('./js/class/Ram.class');
@@ -64,22 +65,21 @@ let disk_analysis = new Vue({
 let files_opened = new Vue({
     el: '#files_opened',
     data: {
-        openedFilesArr: Ram.openedFiles,
+        openedFilesArr: new Array(),
     },
     methods: {
-        updateData: (openedFiles,isSaved) => {
-            if (openedFiles == null) {
+        deleteData: (openedFilesArr,openedFileIndex) => {
+            if (openedFilesArr == null) {
                 files_opened.openedFilesArr = null;
-                files_opened.isSavedArr = null;
             } else {
-                let tmp1 = new Array();
-                let tmp2 = new Array();
-                for (let i = 0; i < files_opened.openedFilesArr.length; i++) {
-                    if (files_opened.isSavedArr[i] === 1) {
-                        Vue.set(files_opened.openedFilesArr, i, openedFiles[i]);
-                    }
-                }
+                files_opened.openedFilesArr.splice(openedFileIndex,1);
             }
+        },
+        addData:(file) => {
+            if (files_opened.openedFilesArr == null){
+                files_opened.openedFilesArr = new Array();
+            }
+            files_opened.openedFilesArr.push(file);
         }
     }
 });
@@ -106,10 +106,16 @@ let files_show = new Vue({
         },
         //编辑文件
         editFile: (file) => {
-            file.isSaved(0);
+            file.isSaved = 0;
             fileNow = file;
-            Ram.openedFiles.push(fileNow);
-            ipcRenderer.send('edit_file', Ram.openedFiles, fileNow);
+
+            let openedFilesArr = storage.getOpenedFilesArr();
+            openedFilesArr.push(fileNow);
+            storage.setOpenedFilesArr(openedFilesArr);
+
+            files_opened.addData(fileNow);
+
+            ipcRenderer.send('edit_file', fileNow);
         },
         //右键某个文件，出现菜单
         showFileMenu: (event, file) => {
@@ -214,12 +220,34 @@ menuFolderEdit.append(new MenuItem({
 }));
 
 
-ipcRenderer.on('closeFile', (event, ramOpenedFiles, ramIsSaved, openedFileIndex, fileIndex, fileContent) => {
-    Ram.openedFiles = ramOpenedFiles;
-    Ram.isSaved = ramIsSaved;
-    dirStru.dirStruArr[fileIndex].fileContent = fileContent;
-    if (Ram.openedFiles.length === 0) {
-        Ram.openedFiles = null;
+ipcRenderer.on('closeFile', (event,fileIndex) => {
+
+    let fileTmp = null;
+    let openedFilesArr = new Array();
+    for (let i = 0; i < storage.getOpenedFilesArr().length; i++){
+        openedFilesArr.push(storage.getOpenedFilesArr()[i]);
     }
-    files_opened.updateData(Ram.openedFiles, Ram.ramIsSaved);
+    let openedFileIndex = null;
+    for(let i = 0; i < openedFilesArr.length; i++){
+        if (openedFilesArr[i].index == fileIndex){
+            if (openedFilesArr[i].isSaved == 1){
+                for (let j = 0; j < dirStru.dirStruArr.length;i++){
+                    if (dirStru.dirStruArr[j].index == fileIndex){
+                        dirStru.dirStruArr[j].content = openedFilesArr[i].content;
+                        break;
+                    }
+                }
+            }
+            openedFilesArr.splice(i,1);
+            openedFileIndex = i;
+            break;
+        }
+    }
+    storage.setOpenedFilesArr(openedFilesArr);
+
+    if (openedFilesArr.length === 0) {
+        openedFilesArr = null;
+    }
+
+    files_opened.deleteData(openedFilesArr,openedFileIndex);
 });

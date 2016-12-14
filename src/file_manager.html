@@ -93,7 +93,9 @@
                                 <template v-for="(file,key) in openedFilesArr">
                                     <tr>
                                         <td>{{file.name}}</td>
-                                        <td>{{file.property}}</td>
+                                        <td v-show="file.property == '00000100'">读写</td>
+                                        <td v-show="file.property == 00000001">只读</td>
+                                        <td v-show="file.property == 00000010">系统文件</td>
                                         <td>{{file.sBlock}}</td>
                                         <td>/</td>
                                     </tr>
