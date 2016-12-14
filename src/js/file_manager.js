@@ -128,11 +128,20 @@ let files_show = new Vue({
             let value = event.target.value;
 
             files_show.files[arrIndex].name = value;
-
+            console.log(dirStru.dirStruArr);
             files_show.rename = 0;
         },
-        delelteFile: (file) =>{
-
+        deleteFile: (file) =>{
+            for (let i = 0; i < files_show.files.length; i++){
+                if (file.index == files_show.files[i].index){
+                    files_show.files.splice(i,1);
+                    Fat.fatArr[file.startBlock] = 0;
+                    disk_analysis.updateFat(Fat.fatArr);
+                    dirStru.dirStruArr.splice(file.index,1);
+                    file = null;
+                    break;
+                }
+            }
         },
         showFileProperty: (file) => {
 
