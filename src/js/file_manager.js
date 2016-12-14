@@ -91,7 +91,10 @@ let files_show = new Vue({
     el: '#files_show',
     data: {
         folders: [],
-        files: []
+        files: [],
+        fileNow:{},
+        //folderNow:{},
+        rename:0
     },
     methods: {
         //右键空白区域出现新建文件或文件夹菜单
@@ -116,6 +119,23 @@ let files_show = new Vue({
             files_opened.addData(fileNow);
 
             ipcRenderer.send('edit_file', fileNow);
+        },
+        renameFile: (file) => {
+            files_show.rename = 1;
+            files_show.fileNow = file;
+        },
+        renameSuccess: (arrIndex,event) =>{
+            let value = event.target.value;
+
+            files_show.files[arrIndex].name = value;
+
+            files_show.rename = 0;
+        },
+        delelteFile: (file) =>{
+
+        },
+        showFileProperty: (file) => {
+
         },
         //右键某个文件，出现菜单
         showFileMenu: (event, file) => {
@@ -169,51 +189,51 @@ menuCreate.append(new MenuItem({
 /*文件的菜单*/
 const menuFileEdit = new Menu();
 menuFileEdit.append(new MenuItem({
-    label: '编辑文件',
+    label: 'edit',
     click() {
         files_show.editFile(fileNow);
     }
 }));
 menuFileEdit.append(new MenuItem({
-    label: '重命名',
+    label: 'rename',
     click() {
-
+        files_show.renameFile(fileNow);
     }
 }));
 menuFileEdit.append(new MenuItem({
-    label: '删除',
+    label: 'delete',
     click() {
-
+        files_show.deleteFile(fileNow);
     }
 }));
 menuFileEdit.append(new MenuItem({
-    label: '属性',
+    label: 'property',
     click() {
-
+        files_show.showFileProperty(fileNow);
     }
 }));
 /*文件夹的菜单*/
 const menuFolderEdit = new Menu();
 menuFolderEdit.append(new MenuItem({
-    label: '打开文件夹',
+    label: 'open',
     click() {
         files_show.enterFolder(folderNow);
     }
 }));
 menuFolderEdit.append(new MenuItem({
-    label: '重命名',
+    label: 'rename',
+    click() {
+        //files_show.editFile(folderNow);
+    }
+}));
+menuFolderEdit.append(new MenuItem({
+    label: 'delete',
     click() {
 
     }
 }));
 menuFolderEdit.append(new MenuItem({
-    label: '删除',
-    click() {
-
-    }
-}));
-menuFolderEdit.append(new MenuItem({
-    label: '属性',
+    label: 'property',
     click() {
 
     }

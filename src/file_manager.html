@@ -45,13 +45,20 @@
                         <template v-for="folder in folders">
                             <div class="files-show-item" v-on:dblclick="enterFolder(folder)" v-on:mousedown="showFolderMenu(event,folder)">
                                 <img class="files-show-img" src="./icon/folder.ico" v-bind:alt="folder.name" v-bind:index="folder.index">
-                                <span class="files-show-text">{{folder.name}}</span>
+                                <span class="files-show-text">
+                                        {{folder.name}}
+                                </span>
                             </div>
                         </template>
-                        <template v-for="file in files">
+                        <template v-for="(file,index) in files">
                             <div class="files-show-item" v-on:dblclick="editFile(file)" v-on:mousedown="showFileMenu(event,file)">
                                 <img class="files-show-img" src="./icon/notepad.ico" v-bind:alt="file.name" v-bind:index="file.index">
-                                <span class="files-show-text">{{file.name}}</span>
+                                <span class="files-show-text" v-if="!rename || file.index != fileNow.index">
+                                        {{file.name}}
+                                </span>
+                                <span class="files-show-text" v-else>
+                                    <input style="width:60px" type="text" v-bind:value="file.name" v-on:blur="renameSuccess(index,$event)">
+                                </span>
                             </div>
                         </template>
                     </div>
