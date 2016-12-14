@@ -4,8 +4,8 @@ const electron = require('electron');
 const jQuery = require('jquery');
 const metroJS = require('metro-dist/js/metro.min'); //引入metroJS
 const Vue = require('vue/dist/vue.min');
-const url = require('./js/util/Url.class');
-const storage = require('./js/util/localStorage.class');
+const url = require('./js/util/url');
+const storage = require('./js/util/localStorage');
 const ipcRenderer = electron.ipcRenderer;
 
 let getArr = {

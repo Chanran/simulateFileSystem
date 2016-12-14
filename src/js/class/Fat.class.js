@@ -6,14 +6,18 @@ class Fat{
      * 遍历fat表，返回空闲块的序号
      * @return int
      */
-    static useFreeBlock(){
+    static useFreeBlock(value = 255){
         for (let i = 2; i < Fat.fatArr.length; i++){
             if (Fat.fatArr[i] === 0){
-                Fat.fatArr[i] = 255;
+                Fat.fatArr[i] = value;
                 return i;
             }
         }
         return -2;
+    }
+
+    static setBlock(blockIndex,value){
+        Fat.fatArr[blockIndex] = value;
     }
 
     constructor(){

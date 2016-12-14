@@ -13,7 +13,8 @@ const DirStruClass = require('./js/class/DirStru.class'); //目录结构类
 const FileClass = require('./js/class/File.class'); //文件类
 const FolderClass = require('./js/class/Folder.class'); //文件夹类
 const Fat = require('./js/class/Fat.class');
-const storage = require('./js/util/localStorage.class');
+const storage = require('./js/util/localStorage');
+const stringBytes = require('./js/util/stringBytes');
 
 //正在打开的文件
 const Ram = require('./js/class/Ram.class');
@@ -126,9 +127,7 @@ let files_show = new Vue({
         },
         renameSuccess: (arrIndex,event) =>{
             let value = event.target.value;
-
             files_show.files[arrIndex].name = value;
-            console.log(dirStru.dirStruArr);
             files_show.rename = 0;
         },
         deleteFile: (file) =>{
@@ -251,7 +250,6 @@ menuFolderEdit.append(new MenuItem({
 
 ipcRenderer.on('closeFile', (event,fileIndex) => {
 
-    let fileTmp = null;
     let openedFilesArr = new Array();
     for (let i = 0; i < storage.getOpenedFilesArr().length; i++){
         openedFilesArr.push(storage.getOpenedFilesArr()[i]);
@@ -262,7 +260,31 @@ ipcRenderer.on('closeFile', (event,fileIndex) => {
             if (openedFilesArr[i].isSaved == 1){
                 for (let j = 0; j < dirStru.dirStruArr.length;i++){
                     if (dirStru.dirStruArr[j].index == fileIndex){
+
+
+                        if (stringBytes.getContentBytesLength(openedFilesArr[i].content) > 64){
+                            let contentArr = stringBytes.splitContent(openedFilesArr[i].content);
+                            //暂时这样做，以后content分割之后存在不同的dirStruArr里，然后再取出来整合成contentn
+                            //dirStru.dirStruArr[j].content = contentArr[0];
+                            let tmpFileFatIndex = openedFilesArr[i].sBlock;
+                            console.log(openedFilesArr[i]);
+                            for (let k = 1; k < contentArr.length; k++){
+                                //暂时
+                                //dirStru.dirStruArr[dirStru.dirStruArrIndex+1] = contentArr[k];
+                                //dirStru.dirStruArrIndex += 1;
+                                let freeBlockIndex = Fat.useFreeBlock();
+                                Fat.setBlock(tmpFileFatIndex,freeBlockIndex);
+                                tmpFileFatIndex = freeBlockIndex;
+                                console.log(tmpFileFatIndex);
+                                console.log(freeBlockIndex);
+                            }
+                        }
+
+                        //暂时这样做
                         dirStru.dirStruArr[j].content = openedFilesArr[i].content;
+
+                        console.log(Fat.fatArr);
+                        disk_analysis.updateFat(Fat.fatArr);
                         break;
                     }
                 }

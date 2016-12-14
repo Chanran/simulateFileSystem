@@ -57,7 +57,7 @@
                                         {{file.name}}
                                 </span>
                                 <span class="files-show-text" v-else>
-                                    <input style="width:60px" type="text" v-bind:value="file.name" v-on:blur="renameSuccess(index,$event)">
+                                    <input id="rename" style="width:60px" type="text" v-bind:value="file.name" v-on:blur="renameSuccess(index,$event)">
                                 </span>
                             </div>
                         </template>
